@@ -331,7 +331,7 @@
     const weatherElement = document.getElementById('weather');
 
     function fetchWeather(latitude, longitude) {
-      const apiKey = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}'; // Replace with your OpenWeatherMap API key
+      const apiKey = 'fbebb3fe5e0944128ff1208e17f389ae'; // Replace with your OpenWeatherMap API key
       const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
       fetch(apiUrl)
