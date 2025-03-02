@@ -6,13 +6,269 @@
   <title>Personal Information</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* Add your CSS styles here */
+    /* Page Loader Styles */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #333, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeOut 0.5s 5s forwards;
+    }
+
+    .loader-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      position: relative;
+      animation: animateText 2s infinite;
+    }
+
+    /* Thunder Strike Effect */
+    .loader-text::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      opacity: 0;
+      animation: thunderStrike 3s linear;
+    }
+
+    @keyframes thunderStrike {
+      0%, 100% {
+        opacity: 0;
+      }
+      10%, 30%, 50%, 70%, 90% {
+        opacity: 1;
+      }
+      20%, 40%, 60%, 80% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes animateText {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #f4f4f4, #e0e0e0);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 360-Degree Gradient Background */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #333, #000);
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 90%;
+      margin: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Profile Section */
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid #0077b5;
+      transition: transform 0.3s ease;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Added shadow */
+      cursor: pointer;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Shake and Bounce Animation */
+    @keyframes shakeAndBounce {
+      0%, 100% {
+        transform: translateX(0) translateY(0);
+      }
+      10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px) translateY(-10px);
+      }
+      20%, 40%, 60%, 80% {
+        transform: translateX(10px) translateY(10px);
+      }
+    }
+
+    .profile-img.shake-and-bounce {
+      animation: shakeAndBounce 0.5s ease 3;
+    }
+
+    .name {
+      font-size: 2.5rem;
+      margin: 10px 0;
+      color: #0077b5;
+    }
+
+    .bio {
+      font-size: 1.2rem;
+      color: #777;
+    }
+
+    /* About Me Section */
+    .info {
+      margin: 30px 0;
+    }
+
+    .info h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0077b5;
+    }
+
+    .info p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Social Media Icons */
+    .social-media {
+      margin: 30px 0;
+    }
+
+    .social-media h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0077b5;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Smaller gap between icons */
+      flex-wrap: wrap;
+    }
+
+    .icons a {
+      color: #333;
+      font-size: 1.5rem; /* Smaller icon size */
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      padding: 8px; /* Smaller padding */
+      background-color: #fff;
+    }
+
+    .icons a:hover {
+      color: #0077b5;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .name {
+        font-size: 2rem;
+      }
+
+      .bio {
+        font-size: 1rem;
+      }
+
+      .info h2, .social-media h2 {
+        font-size: 1.5rem;
+      }
+
+      .info p {
+        font-size: 0.9rem;
+      }
+
+      .icons a {
+        font-size: 1.3rem; /* Even smaller icons for mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .bio {
+        font-size: 0.9rem;
+      }
+
+      .info h2, .social-media h2 {
+        font-size: 1.3rem;
+      }
+
+      .info p {
+        font-size: 0.8rem;
+      }
+
+      .icons a {
+        font-size: 1.2rem; /* Smallest icons for small screens */
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Weather Display -->
-  <div class="weather" id="weather">
-    <i class="fas fa-cloud"></i> Loading weather...
+  <!-- Page Loader -->
+  <div class="loader">
+    <div class="loader-text">SwiftCard</div>
   </div>
 
   <!-- Main Content -->
@@ -34,7 +290,7 @@
         <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
         <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
         <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="tel:+1234567890" target="_blank"><i class="fas fa-phone"></i></a>
+        <a href="tel:+1234567890" target="_blank"><i class="fas fa-phone"></i></a> <!-- Phone Call Icon -->
         <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
       </div>
@@ -43,90 +299,21 @@
 
   <script>
     // JavaScript for Interactive Features
-    const weatherElement = document.getElementById('weather');
+    const profileImg = document.querySelector('.profile-img');
+    const nameElement = document.querySelector('.name');
 
-    function fetchWeather(latitude, longitude) {
-      const apiKey = 'fbebb3fe5e0944128ff1208e17f389ae'; // Your API key
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+    // Shake and Bounce Animation on Click
+    profileImg.addEventListener('click', () => {
+      profileImg.classList.add('shake-and-bounce');
+      setTimeout(() => {
+        profileImg.classList.remove('shake-and-bounce');
+      }, 1500); // Matches the duration of the animation (0.5s * 3)
+    });
 
-      console.log('Fetching weather from:', apiUrl); // Debugging: Log API URL
-
-      fetch(apiUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Weather data:', data); // Debugging: Log weather data
-          if (data.cod === 200) { // Check if the response is successful
-            const weather = data.weather[0];
-            const temperature = data.main.temp;
-            const icon = weather.icon;
-
-            // Update weather display
-            weatherElement.innerHTML = `
-              <i class="fas fa-${getWeatherIcon(icon)}"></i>
-              ${Math.round(temperature)}°C, ${weather.description}
-            `;
-
-            // Update background based on weather
-            updateBackground(weather.main);
-          } else {
-            throw new Error(data.message || 'Unknown error');
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching weather data:', error); // Debugging: Log API error
-          weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Weather unavailable';
-        });
-    }
-
-    function getWeatherIcon(iconCode) {
-      const iconMap = {
-        '01d': 'sun', '01n': 'moon', '02d': 'cloud-sun', '02n': 'cloud-moon',
-        '03d': 'cloud', '03n': 'cloud', '04d': 'cloud', '04n': 'cloud',
-        '09d': 'cloud-rain', '09n': 'cloud-rain', '10d': 'cloud-sun-rain',
-        '10n': 'cloud-moon-rain', '11d': 'bolt', '11n': 'bolt',
-        '13d': 'snowflake', '13n': 'snowflake', '50d': 'smog', '50n': 'smog',
-      };
-      return iconMap[iconCode] || 'cloud';
-    }
-
-    function updateBackground(weatherCondition) {
-      const body = document.body;
-      let gradient = '';
-
-      switch (weatherCondition.toLowerCase()) {
-        case 'clear': gradient = 'linear-gradient(135deg, #87CEEB, #1E90FF)'; break;
-        case 'clouds': gradient = 'linear-gradient(135deg, #B0C4DE, #778899)'; break;
-        case 'rain': gradient = 'linear-gradient(135deg, #4682B4, #6A5ACD)'; break;
-        case 'thunderstorm': gradient = 'linear-gradient(135deg, #2F4F4F, #00008B)'; break;
-        case 'snow': gradient = 'linear-gradient(135deg, #FFFFFF, #ADD8E6)'; break;
-        default: gradient = 'linear-gradient(135deg, #f4f4f4, #e0e0e0)';
-      }
-
-      body.style.background = gradient;
-    }
-
-    // Get User Location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const { latitude, longitude } = position.coords;
-          console.log('User location:', latitude, longitude); // Debugging: Log user location
-          fetchWeather(latitude, longitude);
-        },
-        error => {
-          console.error('Error getting location:', error); // Debugging: Log geolocation error
-          weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Location unavailable';
-        }
-      );
-    } else {
-      console.error('Geolocation not supported'); // Debugging: Log if geolocation is unsupported
-      weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Geolocation not supported';
-    }
+    // Toggle Name on Click
+    profileImg.addEventListener('click', () => {
+      nameElement.textContent = nameElement.textContent === 'John Doe' ? 'Hello World!' : 'John Doe';
+    });
   </script>
 </body>
 </html>
