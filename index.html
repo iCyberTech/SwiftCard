@@ -82,7 +82,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle, #f4f4f4, #e0e0e0);
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0); /* Default background */
       color: #333;
       display: flex;
       justify-content: center;
@@ -90,21 +90,28 @@
       min-height: 100vh;
       position: relative;
       overflow: hidden;
+      transition: background 1s ease; /* Smooth background transition */
     }
 
-    /* 360-Degree Gradient Background */
-    body::after {
-      content: '';
+    /* Weather Display */
+    .weather {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, #333, #000);
-      z-index: -1;
-      opacity: 0.8;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 1rem;
+      color: #333;
+      z-index: 10;
     }
 
+    .weather i {
+      margin-right: 10px;
+    }
+
+    /* Container */
     .container {
       max-width: 800px;
       width: 90%;
@@ -190,33 +197,22 @@
       color: #0077b5;
     }
 
-    .icons-container {
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: none; /* Hide scrollbar for Firefox */
-    }
-
-    .icons-container::-webkit-scrollbar {
-      display: none; /* Hide scrollbar for Chrome/Safari */
-    }
-
     .icons {
-      display: inline-flex;
-      gap: 20px;
-      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px; /* Reduced gap for smaller icons */
+      flex-wrap: wrap;
     }
 
     .icons a {
       color: #333;
-      font-size: 2.5rem; /* Increased icon size */
+      font-size: 2rem; /* Smaller icon size */
       transition: all 0.3s ease;
       text-decoration: none;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      padding: 15px;
+      padding: 10px; /* Reduced padding */
       background-color: #fff;
-      flex: 0 0 auto; /* Prevent flex shrinking */
     }
 
     .icons a:hover {
@@ -244,7 +240,7 @@
       }
 
       .icons a {
-        font-size: 2rem;
+        font-size: 1.8rem; /* Smaller icons for mobile */
       }
     }
 
@@ -271,7 +267,7 @@
       }
 
       .icons a {
-        font-size: 1.8rem;
+        font-size: 1.5rem; /* Even smaller icons for small screens */
       }
     }
   </style>
@@ -280,6 +276,11 @@
   <!-- Page Loader -->
   <div class="loader">
     <div class="loader-text">SwiftCard</div>
+  </div>
+
+  <!-- Weather Display -->
+  <div class="weather" id="weather">
+    <i class="fas fa-cloud"></i> Loading weather...
   </div>
 
   <!-- Main Content -->
@@ -297,15 +298,13 @@
 
     <div class="social-media">
       <h2>Connect with Me</h2>
-      <div class="icons-container">
-        <div class="icons">
-          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
-          <a href="tel:+1234567890" target="_blank"><i class="fas fa-phone"></i></a> <!-- Phone Call Icon -->
-          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
-        </div>
+      <div class="icons">
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+1234567890" target="_blank"><i class="fas fa-phone"></i></a> <!-- Phone Call Icon -->
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
       </div>
     </div>
   </div>
@@ -327,6 +326,102 @@
     profileImg.addEventListener('click', () => {
       nameElement.textContent = nameElement.textContent === 'John Doe' ? 'Hello World!' : 'John Doe';
     });
+
+    // Fetch Weather Data
+    const weatherElement = document.getElementById('weather');
+
+    function fetchWeather(latitude, longitude) {
+      const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const weather = data.weather[0];
+          const temperature = data.main.temp;
+          const icon = weather.icon;
+
+          // Update weather display
+          weatherElement.innerHTML = `
+            <i class="fas fa-${getWeatherIcon(icon)}"></i>
+            ${Math.round(temperature)}°C, ${weather.description}
+          `;
+
+          // Update background based on weather
+          updateBackground(weather.main);
+        })
+        .catch(error => {
+          console.error('Error fetching weather data:', error);
+          weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Weather unavailable';
+        });
+    }
+
+    function getWeatherIcon(iconCode) {
+      const iconMap = {
+        '01d': 'sun', // Clear sky (day)
+        '01n': 'moon', // Clear sky (night)
+        '02d': 'cloud-sun', // Few clouds (day)
+        '02n': 'cloud-moon', // Few clouds (night)
+        '03d': 'cloud', // Scattered clouds
+        '03n': 'cloud',
+        '04d': 'cloud', // Broken clouds
+        '04n': 'cloud',
+        '09d': 'cloud-rain', // Shower rain
+        '09n': 'cloud-rain',
+        '10d': 'cloud-sun-rain', // Rain (day)
+        '10n': 'cloud-moon-rain', // Rain (night)
+        '11d': 'bolt', // Thunderstorm
+        '11n': 'bolt',
+        '13d': 'snowflake', // Snow
+        '13n': 'snowflake',
+        '50d': 'smog', // Mist
+        '50n': 'smog',
+      };
+      return iconMap[iconCode] || 'cloud';
+    }
+
+    function updateBackground(weatherCondition) {
+      const body = document.body;
+      let gradient = '';
+
+      switch (weatherCondition.toLowerCase()) {
+        case 'clear':
+          gradient = 'linear-gradient(135deg, #87CEEB, #1E90FF)'; // Sky blue
+          break;
+        case 'clouds':
+          gradient = 'linear-gradient(135deg, #B0C4DE, #778899)'; // Light gray
+          break;
+        case 'rain':
+          gradient = 'linear-gradient(135deg, #4682B4, #6A5ACD)'; // Blue/purple
+          break;
+        case 'thunderstorm':
+          gradient = 'linear-gradient(135deg, #2F4F4F, #00008B)'; // Dark blue
+          break;
+        case 'snow':
+          gradient = 'linear-gradient(135deg, #FFFFFF, #ADD8E6)'; // White/light blue
+          break;
+        default:
+          gradient = 'linear-gradient(135deg, #f4f4f4, #e0e0e0)'; // Default
+      }
+
+      body.style.background = gradient;
+    }
+
+    // Get User Location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(latitude, longitude);
+        },
+        error => {
+          console.error('Error getting location:', error);
+          weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Location unavailable';
+        }
+      );
+    } else {
+      weatherElement.innerHTML = '<i class="fas fa-cloud"></i> Geolocation not supported';
+    }
   </script>
 </body>
 </html>
