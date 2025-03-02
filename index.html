@@ -126,10 +126,29 @@
       margin-bottom: 20px;
       border: 3px solid #0077b5;
       transition: transform 0.3s ease;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Added shadow */
+      cursor: pointer;
     }
 
     .profile-img:hover {
       transform: scale(1.1);
+    }
+
+    /* Shake and Bounce Animation */
+    @keyframes shakeAndBounce {
+      0%, 100% {
+        transform: translateX(0) translateY(0);
+      }
+      10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px) translateY(-10px);
+      }
+      20%, 40%, 60%, 80% {
+        transform: translateX(10px) translateY(10px);
+      }
+    }
+
+    .profile-img.shake-and-bounce {
+      animation: shakeAndBounce 0.5s ease 3;
     }
 
     .name {
@@ -171,22 +190,33 @@
       color: #0077b5;
     }
 
+    .icons-container {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+
+    .icons-container::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome/Safari */
+    }
+
     .icons {
-      display: flex;
-      justify-content: center;
+      display: inline-flex;
       gap: 20px;
-      flex-wrap: wrap;
+      padding: 10px;
     }
 
     .icons a {
       color: #333;
-      font-size: 2rem;
+      font-size: 2.5rem; /* Increased icon size */
       transition: all 0.3s ease;
       text-decoration: none;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 50%;
-      padding: 10px;
+      padding: 15px;
       background-color: #fff;
+      flex: 0 0 auto; /* Prevent flex shrinking */
     }
 
     .icons a:hover {
@@ -214,7 +244,7 @@
       }
 
       .icons a {
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
     }
 
@@ -241,7 +271,7 @@
       }
 
       .icons a {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -267,21 +297,33 @@
 
     <div class="social-media">
       <h2>Connect with Me</h2>
-      <div class="icons">
-        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
+      <div class="icons-container">
+        <div class="icons">
+          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="tel:+1234567890" target="_blank"><i class="fas fa-phone"></i></a> <!-- Phone Call Icon -->
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // JavaScript for Interactive Feature
+    // JavaScript for Interactive Features
     const profileImg = document.querySelector('.profile-img');
     const nameElement = document.querySelector('.name');
 
+    // Shake and Bounce Animation on Click
+    profileImg.addEventListener('click', () => {
+      profileImg.classList.add('shake-and-bounce');
+      setTimeout(() => {
+        profileImg.classList.remove('shake-and-bounce');
+      }, 1500); // Matches the duration of the animation (0.5s * 3)
+    });
+
+    // Toggle Name on Click
     profileImg.addEventListener('click', () => {
       nameElement.textContent = nameElement.textContent === 'John Doe' ? 'Hello World!' : 'John Doe';
     });
