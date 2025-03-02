@@ -82,7 +82,6 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle, #f4f4f4, #e0e0e0);
       color: #333;
       display: flex;
       justify-content: center;
@@ -92,19 +91,29 @@
       overflow: hidden;
     }
 
-    /* 360-Degree Gradient Background */
-    body::after {
-      content: '';
+    /* Video Background */
+    .video-background {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, #333, #000);
-      z-index: -1;
-      opacity: 0.8;
+      object-fit: cover; /* Ensures the video covers the entire background */
+      z-index: -1; /* Places the video behind other content */
     }
 
+    /* Dark Gradient Overlay */
+    .gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(51, 51, 51, 0.8), rgba(0, 0, 0, 0.8)); /* Dark gradient overlay */
+      z-index: 0; /* Places the gradient above the video but below the content */
+    }
+
+    /* Container */
     .container {
       max-width: 800px;
       width: 90%;
@@ -115,7 +124,7 @@
       border-radius: 10px;
       text-align: center;
       position: relative;
-      z-index: 1;
+      z-index: 1; /* Places the content above the gradient and video */
     }
 
     /* Profile Section */
@@ -270,6 +279,15 @@
   <div class="loader">
     <div class="loader-text">SwiftCard</div>
   </div>
+
+  <!-- Video Background -->
+  <video class="video-background" autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Dark Gradient Overlay -->
+  <div class="gradient-overlay"></div>
 
   <!-- Main Content -->
   <div class="container">
