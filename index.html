@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Page Loader Styles */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #333, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeOut 0.5s 5s forwards;
+    }
+
+    .loader-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      position: relative;
+      animation: animateText 2s infinite;
+    }
+
+    /* Thunder Strike Effect */
+    .loader-text::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+      opacity: 0;
+      animation: thunderStrike 3s linear;
+    }
+
+    @keyframes thunderStrike {
+      0%, 100% {
+        opacity: 0;
+      }
+      10%, 30%, 50%, 70%, 90% {
+        opacity: 1;
+      }
+      20%, 40%, 60%, 80% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes animateText {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #f4f4f4, #e0e0e0);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 360-Degree Gradient Background */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #333, #000);
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 90%;
+      margin: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Profile Section */
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid #0077b5;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.1);
+    }
+
+    .name {
+      font-size: 2.5rem;
+      margin: 10px 0;
+      color: #0077b5;
+    }
+
+    .bio {
+      font-size: 1.2rem;
+      color: #777;
+    }
+
+    /* About Me Section */
+    .info {
+      margin: 30px 0;
+    }
+
+    .info h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0077b5;
+    }
+
+    .info p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Social Media Icons */
+    .social-media {
+      margin: 30px 0;
+    }
+
+    .social-media h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0077b5;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .icons a {
+      color: #333;
+      font-size: 2rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      padding: 10px;
+      background-color: #fff;
+    }
+
+    .icons a:hover {
+      color: #0077b5;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .name {
+        font-size: 2rem;
+      }
+
+      .bio {
+        font-size: 1rem;
+      }
+
+      .info h2, .social-media h2 {
+        font-size: 1.5rem;
+      }
+
+      .info p {
+        font-size: 0.9rem;
+      }
+
+      .icons a {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .bio {
+        font-size: 0.9rem;
+      }
+
+      .info h2, .social-media h2 {
+        font-size: 1.3rem;
+      }
+
+      .info p {
+        font-size: 0.8rem;
+      }
+
+      .icons a {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Loader -->
+  <div class="loader">
+    <div class="loader-text">SwiftCard</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="profile">
+      <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+      <h1 class="name">John Doe</h1>
+      <p class="bio">Web Developer | Tech Enthusiast | Lifelong Learner</p>
+    </div>
+
+    <div class="info">
+      <h2>About Me</h2>
+      <p>Hello! I'm John Doe, a passionate web developer with over 5 years of experience in building responsive and user-friendly websites. I love exploring new technologies and sharing my knowledge with others.</p>
+    </div>
+
+    <div class="social-media">
+      <h2>Connect with Me</h2>
+      <div class="icons">
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:johndoe@example.com" target="_blank"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for Interactive Feature
+    const profileImg = document.querySelector('.profile-img');
+    const nameElement = document.querySelector('.name');
+
+    profileImg.addEventListener('click', () => {
+      nameElement.textContent = nameElement.textContent === 'John Doe' ? 'Hello World!' : 'John Doe';
+    });
+  </script>
+</body>
+</html>
