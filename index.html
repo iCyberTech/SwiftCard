@@ -77,6 +77,41 @@
       }
     }
 
+    /* Animated Text at the Top of the Homepage */
+    .top-loader-text {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0077b5;
+      text-transform: uppercase;
+      z-index: 1001;
+      opacity: 0;
+      animation: slideIn 0.5s 5.5s forwards, glow 2s infinite 6s;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 5px rgba(0, 119, 181, 0.8), 0 0 10px rgba(0, 119, 181, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(0, 119, 181, 1), 0 0 30px rgba(0, 119, 181, 1);
+      }
+    }
+
     /* General Styles */
     body {
       font-family: Arial, sans-serif;
@@ -270,6 +305,9 @@
   <div class="loader">
     <div class="loader-text">SwiftCard</div>
   </div>
+
+  <!-- Animated Text at the Top of the Homepage -->
+  <div class="top-loader-text">SwiftCard</div>
 
   <!-- Main Content -->
   <div class="container">
