@@ -82,7 +82,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle, #f4f4f4, #e0e0e0);
+      background: #fff; /* White background */
       color: #333;
       display: flex;
       justify-content: center;
@@ -92,7 +92,7 @@
       overflow: hidden;
     }
 
-    /* 360-Degree Gradient Background */
+    /* Dark Gradient Background */
     body::after {
       content: '';
       position: absolute;
@@ -100,11 +100,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, #333, #000);
-      z-index: -1;
-      opacity: 0.8;
+      background: radial-gradient(circle, rgba(51, 51, 51, 0.8), rgba(0, 0, 0, 0.8)); /* Dark gradient overlay */
+      z-index: -1; /* Places the gradient behind the content */
     }
 
+    /* Container */
     .container {
       max-width: 800px;
       width: 90%;
@@ -115,7 +115,7 @@
       border-radius: 10px;
       text-align: center;
       position: relative;
-      z-index: 1;
+      z-index: 1; /* Places the content above the gradient */
     }
 
     /* Profile Section */
