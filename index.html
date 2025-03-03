@@ -77,15 +77,14 @@
       }
     }
 
-    /* Animated Text at the Top of the Homepage */
+    /* Animated Text at the Upper-Left Side of the Homepage */
     .top-loader-text {
       position: fixed;
       top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
+      left: 20px;
+      font-size: 1.5rem; /* Smaller font size */
       font-weight: bold;
-      color: #0077b5;
+      color: #333; /* Darker color */
       text-transform: uppercase;
       z-index: 1001;
       opacity: 0;
@@ -95,20 +94,20 @@
     @keyframes slideIn {
       from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-50px);
+        transform: translateX(-50px);
       }
       to {
         opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        transform: translateX(0);
       }
     }
 
     @keyframes glow {
       0%, 100% {
-        text-shadow: 0 0 5px rgba(0, 119, 181, 0.8), 0 0 10px rgba(0, 119, 181, 0.8);
+        text-shadow: 0 0 5px rgba(51, 51, 51, 0.8), 0 0 10px rgba(51, 51, 51, 0.8); /* Darker glow */
       }
       50% {
-        text-shadow: 0 0 20px rgba(0, 119, 181, 1), 0 0 30px rgba(0, 119, 181, 1);
+        text-shadow: 0 0 20px rgba(51, 51, 51, 1), 0 0 30px rgba(51, 51, 51, 1); /* Darker glow */
       }
     }
 
@@ -306,7 +305,7 @@
     <div class="loader-text">SwiftCard</div>
   </div>
 
-  <!-- Animated Text at the Top of the Homepage -->
+  <!-- Animated Text at the Upper-Left Side of the Homepage -->
   <div class="top-loader-text">SwiftCard</div>
 
   <!-- Main Content -->
