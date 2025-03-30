@@ -312,6 +312,8 @@
       border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
     }
 
     button:hover {
@@ -328,6 +330,7 @@
 
     .stat-item {
       text-align: center;
+      cursor: pointer;
     }
 
     .stat-item i {
@@ -370,6 +373,61 @@
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
     }
 
+    /* Gallery Section */
+    .gallery {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d1d9eb;
+      border-radius: 30px;
+      box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
+    }
+
+    .gallery.active {
+      display: block;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .gallery-item {
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.3), -7px -7px 17px -2px rgba(255,255,255,0.7);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 7px 7px 20px -2px rgba(0,0,0,0.4), -7px -7px 20px -2px rgba(255,255,255,0.8);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .name {
@@ -390,6 +448,10 @@
 
       .icons a {
         font-size: 1.3rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -417,6 +479,10 @@
 
       .icons a {
         font-size: 1.2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -446,7 +512,7 @@
     </div>
 
     <div class="buttons">
-      <button class="b1">Message</button>
+      <button class="b1" id="gallery-btn">Gallery</button>
       <button class="b2">Follow</button>
     </div>
 
@@ -460,6 +526,30 @@
         <i class="fas fa-handshake"></i>
         <span>Followers</span>
         <span class="stat-value">658</span>
+      </div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <h3 class="gallery-title">My Gallery</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?nature" alt="Gallery Image 1">
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?city" alt="Gallery Image 2">
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?technology" alt="Gallery Image 3">
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?travel" alt="Gallery Image 4">
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?art" alt="Gallery Image 5">
+        </div>
+        <div class="gallery-item">
+          <img src="https://source.unsplash.com/random/300x300?architecture" alt="Gallery Image 6">
+        </div>
       </div>
     </div>
 
@@ -485,6 +575,8 @@
     // JavaScript for Interactive Features
     const profileImg = document.querySelector('.profile-img');
     const nameElement = document.querySelector('.name');
+    const galleryBtn = document.getElementById('gallery-btn');
+    const gallery = document.getElementById('gallery');
 
     // Shake and Bounce Animation on Click
     profileImg.addEventListener('click', () => {
@@ -506,6 +598,14 @@
       });
       $('#followers-stat').click(function(){
         $(this).find('.stat-value').toggle();
+      });
+      
+      // Gallery toggle
+      $('#gallery-btn').click(function(){
+        $('#gallery').toggleClass('active');
+        $(this).text(function(i, text){
+          return text === "Gallery" ? "Close Gallery" : "Gallery";
+        });
       });
     });
   </script>
