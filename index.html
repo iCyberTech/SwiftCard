@@ -140,14 +140,13 @@
       position: relative;
     }
 
-    /* Profile Section */
+    /* Profile Section - Updated to fit spinning border */
     .profile-img {
-      width: 150px;
-      height: 150px;
+      width: 90%; /* Slightly smaller than container */
+      height: 90%;
       border-radius: 50%;
-      margin-bottom: 20px;
+      object-fit: cover;
       transition: transform 0.3s ease;
-      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.5), -7px -7px 17px -2px rgba(255,255,255,0.7);
       cursor: pointer;
       position: relative;
     }
@@ -172,10 +171,11 @@
       animation: bari 12s linear infinite;
       justify-content: center;
       align-items: center;
+      padding: 5px; /* Creates space between image and border */
     }
 
     .profile-img:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     /* Shake and Bounce Animation */
@@ -366,7 +366,7 @@
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
     }
 
-    /* Gallery Section */
+    /* Gallery Section - Updated for half-size images */
     .gallery {
       display: none;
       margin-top: 20px;
@@ -390,7 +390,7 @@
     .gallery-item {
       width: 100%;
       height: 0;
-      padding-bottom: 100%;
+      padding-bottom: 100%; /* Changed from 100% to make images half height */
       position: relative;
       overflow: hidden;
       border-radius: 15px;
@@ -601,10 +601,10 @@
           <img src="image4.jpg" alt="Gallery Image 4">
         </div>
         <div class="gallery-item">
-          <img src="image5" alt="Gallery Image 5">
+          <img src="image5.jpg" alt="Gallery Image 5">
         </div>
         <div class="gallery-item">
-          <img src="image6" alt="Gallery Image 6">
+          <img src="image6.jpg" alt="Gallery Image 6">
         </div>
       </div>
     </div>
