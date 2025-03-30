@@ -142,7 +142,7 @@
 
     /* Profile Section - Updated to fit spinning border */
     .profile-img {
-      width: 90%; /* Slightly smaller than container */
+      width: 90%;
       height: 90%;
       border-radius: 50%;
       object-fit: cover;
@@ -171,7 +171,7 @@
       animation: bari 12s linear infinite;
       justify-content: center;
       align-items: center;
-      padding: 5px; /* Creates space between image and border */
+      padding: 5px;
     }
 
     .profile-img:hover {
@@ -366,7 +366,7 @@
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
     }
 
-    /* Gallery Section - Updated for half-size images */
+    /* Gallery Section - Updated for full-size images */
     .gallery {
       display: none;
       margin-top: 20px;
@@ -390,7 +390,7 @@
     .gallery-item {
       width: 100%;
       height: 0;
-      padding-bottom: 100%; /* Changed from 100% to make images half height */
+      padding-bottom: 100%; /* Changed back to 100% for full height */
       position: relative;
       overflow: hidden;
       border-radius: 15px;
@@ -507,9 +507,9 @@
     }
 
     @media (max-width: 480px) {
-      .profile-img {
-        width: 120px;
+      .profile-img-container {
         height: 120px;
+        width: 120px;
       }
 
       .name {
