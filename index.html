@@ -428,6 +428,64 @@
       color: #333;
     }
 
+    /* Message Form Section */
+    .message-form {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #d1d9eb;
+      border-radius: 30px;
+      box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
+    }
+
+    .message-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background-color: #d1d9eb;
+      box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 15px;
+      background-color: #d1d9eb;
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.5), -7px -7px 17px -2px rgba(255,255,255,0.7);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .name {
@@ -484,6 +542,11 @@
       .gallery-grid {
         grid-template-columns: 1fr;
       }
+
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -513,7 +576,7 @@
 
     <div class="buttons">
       <button class="b1" id="gallery-btn">Gallery</button>
-      <button class="b2">Follow</button>
+      <button class="b2" id="message-btn">Message</button>
     </div>
 
     <div class="stats">
@@ -529,6 +592,7 @@
       </div>
     </div>
 
+    <!-- Gallery Section -->
     <div class="gallery" id="gallery">
       <h3 class="gallery-title">My Gallery</h3>
       <div class="gallery-grid">
@@ -551,6 +615,25 @@
           <img src="https://source.unsplash.com/random/300x300?architecture" alt="Gallery Image 6">
         </div>
       </div>
+    </div>
+
+    <!-- Message Form Section -->
+    <div class="message-form" id="message-form">
+      <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
     </div>
 
     <div class="info">
@@ -577,6 +660,8 @@
     const nameElement = document.querySelector('.name');
     const galleryBtn = document.getElementById('gallery-btn');
     const gallery = document.getElementById('gallery');
+    const messageBtn = document.getElementById('message-btn');
+    const messageForm = document.getElementById('message-form');
 
     // Shake and Bounce Animation on Click
     profileImg.addEventListener('click', () => {
@@ -603,8 +688,41 @@
       // Gallery toggle
       $('#gallery-btn').click(function(){
         $('#gallery').toggleClass('active');
+        $('#message-form').removeClass('active');
         $(this).text(function(i, text){
           return text === "Gallery" ? "Close Gallery" : "Gallery";
+        });
+        $('#message-btn').text("Message");
+      });
+      
+      // Message form toggle
+      $('#message-btn').click(function(){
+        $('#message-form').toggleClass('active');
+        $('#gallery').removeClass('active');
+        $(this).text(function(i, text){
+          return text === "Message" ? "Close Form" : "Message";
+        });
+        $('#gallery-btn').text("Gallery");
+      });
+      
+      // Form submission handling
+      $('form').submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+          url: form.attr('action'),
+          method: form.attr('method'),
+          data: form.serialize(),
+          dataType: 'json',
+          success: function() {
+            swal("Success!", "Your message has been sent!", "success");
+            form.trigger('reset');
+            $('#message-form').removeClass('active');
+            $('#message-btn').text("Message");
+          },
+          error: function() {
+            swal("Oops!", "Something went wrong. Please try again.", "error");
+          }
         });
       });
     });
