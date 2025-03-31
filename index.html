@@ -415,7 +415,7 @@
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
     }
 
-    /* Improved Gallery Section with Zoom Effect */
+    /* Improved Gallery Section with Lightbox */
     .gallery {
       display: none;
       margin-top: 20px;
@@ -445,7 +445,7 @@
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.3), -7px -7px 17px -2px rgba(255,255,255,0.7);
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
       margin: 0;
     }
 
@@ -453,11 +453,11 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
-      transition: transform 0.5s ease;
+      transition: transform 0.3s ease;
       display: block;
-      background-color: #d1d9eb;
+      cursor: pointer;
     }
 
     .gallery-item:hover {
@@ -476,7 +476,7 @@
       padding: 0 15px;
     }
 
-    /* Lightbox Modal for Full Image View */
+    /* Lightbox Styles */
     .lightbox {
       display: none;
       position: fixed;
@@ -484,7 +484,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.9);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -500,7 +500,7 @@
       position: relative;
     }
 
-    .lightbox-content img {
+    .lightbox-img {
       max-width: 100%;
       max-height: 90vh;
       border-radius: 10px;
@@ -512,8 +512,14 @@
       top: 20px;
       right: 20px;
       color: white;
-      font-size: 2rem;
+      font-size: 2.5rem;
       cursor: pointer;
+      z-index: 2001;
+      transition: all 0.3s ease;
+    }
+
+    .close-lightbox:hover {
+      transform: scale(1.2);
     }
 
     /* Message Form Section */
@@ -651,7 +657,7 @@
   <div class="lightbox" id="lightbox">
     <span class="close-lightbox">&times;</span>
     <div class="lightbox-content">
-      <img id="lightbox-image" src="" alt="Full size image">
+      <img class="lightbox-img" id="lightbox-image" src="" alt="Full size image">
     </div>
   </div>
 
