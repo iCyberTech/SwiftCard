@@ -140,15 +140,44 @@
       position: relative;
     }
 
-    /* Profile Section - Updated to fit spinning border */
+    /* Enhanced Profile Section */
+    .profile-img-container {
+      background: linear-gradient(45deg, #d1d9eb, #c1c9db, #d1d9eb);
+      box-shadow: 
+        7px 7px 17px -1px rgba(0,0,0,0.5), 
+        -7px -7px 17px -1px rgba(255,255,255,0.7),
+        inset 3px 3px 10px rgba(0,0,0,0.1),
+        inset -3px -3px 10px rgba(255,255,255,0.5);
+      display: flex;
+      overflow: hidden;
+      height: 180px;
+      width: 180px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      position: relative;
+      animation: bari 12s linear infinite, float 6s ease-in-out infinite;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+      transition: all 0.5s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .profile-img {
-      width: 90%;
-      height: 90%;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: all 0.5s ease;
       cursor: pointer;
       position: relative;
+      z-index: 2;
+      border: 3px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
     @keyframes bari {
@@ -159,23 +188,43 @@
       100% {border-radius: 40% 60% 65% 35% / 35% 55% 45% 65%; transform: rotate(360deg);}
     }
 
-    .profile-img-container {
-      background-color: #d1d9eb;
-      box-shadow: 7px 7px 17px -1px rgba(0,0,0,0.5), -7px -7px 17px -1px rgba(255,255,255,0.7);
-      display: flex;
-      overflow: hidden;
-      height: 160px;
-      width: 160px;
-      margin: 0 auto 20px;
-      border-radius: 40% 60% 65% 35% / 35% 55% 45% 65%;
-      animation: bari 12s linear infinite;
-      justify-content: center;
-      align-items: center;
-      padding: 5px;
+    .profile-img-container::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #0077b5, #00b5ad, #0077b5);
+      z-index: 1;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      animation: rotateBorder 8s linear infinite;
+    }
+
+    @keyframes rotateBorder {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-img-container:hover::before {
+      opacity: 0.7;
+    }
+
+    .profile-img-container:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        10px 10px 20px -1px rgba(0,0,0,0.4), 
+        -10px -10px 20px -1px rgba(255,255,255,0.8),
+        inset 5px 5px 15px rgba(0,0,0,0.1),
+        inset -5px -5px 15px rgba(255,255,255,0.5);
     }
 
     .profile-img:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.5);
     }
 
     /* Shake and Bounce Animation */
@@ -366,11 +415,11 @@
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
     }
 
-    /* Gallery Section - Fixed white space issue */
+    /* Improved Gallery Section with Zoom Effect */
     .gallery {
       display: none;
       margin-top: 20px;
-      padding: 15px 0; /* Changed from 15px to 15px 0 to remove horizontal padding */
+      padding: 15px 0;
       background-color: #d1d9eb;
       border-radius: 30px;
       box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
@@ -385,7 +434,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 15px;
-      padding: 0 15px; /* Added to contain the grid within visible area */
+      padding: 0 15px;
     }
 
     .gallery-item {
@@ -396,18 +445,19 @@
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.3), -7px -7px 17px -2px rgba(255,255,255,0.7);
-      transition: all 0.3s ease;
-      margin: 0; /* Ensure no margin */
+      transition: all 0.5s ease;
+      margin: 0;
     }
 
     .gallery-item img {
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center center; /* Ensures image is centered */
-      transition: transform 0.3s ease;
-      display: block; /* Removes default inline spacing */
+      object-fit: contain;
+      object-position: center;
+      transition: transform 0.5s ease;
+      display: block;
+      background-color: #d1d9eb;
     }
 
     .gallery-item:hover {
@@ -423,7 +473,47 @@
       font-size: 1.5rem;
       margin-bottom: 15px;
       color: #333;
-      padding: 0 15px; /* Added to align with grid */
+      padding: 0 15px;
+    }
+
+    /* Lightbox Modal for Full Image View */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
     }
 
     /* Message Form Section */
@@ -557,6 +647,14 @@
   <!-- Animated Text at the Upper-Left Side of the Homepage -->
   <div class="top-loader-text">SwiftCard</div>
 
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <div class="lightbox-content">
+      <img id="lightbox-image" src="" alt="Full size image">
+    </div>
+  </div>
+
   <!-- Main Content -->
   <div class="container">
     <div class="nav">
@@ -594,22 +692,22 @@
       <h3 class="gallery-title">My Gallery</h3>
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="image1.jpg" alt="Gallery Image 1">
+          <img src="profile.jpg" alt="Gallery Image 1" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image2.jpg" alt="Gallery Image 2">
+          <img src="profile.jpg" alt="Gallery Image 2" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image3.jpg" alt="Gallery Image 3">
+          <img src="image3.jpg" alt="Gallery Image 3" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image4.jpg" alt="Gallery Image 4">
+          <img src="image4.jpg" alt="Gallery Image 4" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image5.jpg" alt="Gallery Image 5">
+          <img src="image5.jpg" alt="Gallery Image 5" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image6.jpg" alt="Gallery Image 6">
+          <img src="image6.jpg" alt="Gallery Image 6" class="gallery-image">
         </div>
       </div>
     </div>
@@ -659,6 +757,10 @@
     const gallery = document.getElementById('gallery');
     const messageBtn = document.getElementById('message-btn');
     const messageForm = document.getElementById('message-form');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    const closeLightbox = document.querySelector('.close-lightbox');
+    const galleryImages = document.querySelectorAll('.gallery-image');
 
     // Shake and Bounce Animation on Click
     profileImg.addEventListener('click', () => {
@@ -671,6 +773,27 @@
     // Toggle Name on Click
     profileImg.addEventListener('click', () => {
       nameElement.textContent = nameElement.textContent === 'Mr Gideon' ? 'Hello World!' : 'Mr Gideon';
+    });
+
+    // Lightbox functionality
+    galleryImages.forEach(image => {
+      image.addEventListener('click', () => {
+        lightboxImg.src = image.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeLightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
     });
 
     // Stats toggle
