@@ -125,6 +125,69 @@
       align-items: center;
       min-height: 100vh;
       position: relative;
+      transition: all 0.5s ease;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #1a1a2e;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .container {
+      background-color: #16213e;
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.7), -7px -7px 17px -2px rgba(50,50,70,0.3);
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .profile-img-container {
+      background-color: #16213e;
+      box-shadow: 7px 7px 17px -1px rgba(0,0,0,0.7), -7px -7px 17px -1px rgba(50,50,70,0.3);
+    }
+
+    body.dark-mode .name {
+      color: #f0f0f0;
+      text-shadow: 7px 7px 10px -2px rgba(0,0,0,0.7);
+    }
+
+    body.dark-mode .bio {
+      color: #b8b8b8;
+      text-shadow: inset 7px 7px 10px -2px rgba(0,0,0,0.7), inset -7px -7px 10px -2px rgba(50,50,70,0.3);
+    }
+
+    body.dark-mode .info p {
+      color: #b8b8b8;
+    }
+
+    body.dark-mode .icons a {
+      background-color: #16213e;
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.7), -7px -7px 17px -2px rgba(50,50,70,0.3);
+      color: #f0f0f0;
+    }
+
+    body.dark-mode button,
+    body.dark-mode .submit-btn,
+    body.dark-mode .nav a {
+      background-color: #16213e;
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.7), -7px -7px 17px -2px rgba(50,50,70,0.3);
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .gallery,
+    body.dark-mode .message-form {
+      background-color: #16213e;
+      box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.5), inset -7px -7px 17px -2px rgba(50,50,70,0.2);
+    }
+
+    body.dark-mode .form-group input,
+    body.dark-mode .form-group textarea {
+      background-color: #16213e;
+      box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.5), inset -7px -7px 17px -2px rgba(50,50,70,0.2);
+      color: #f0f0f0;
+    }
+
+    body.dark-mode .gallery-item {
+      box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.5), -7px -7px 17px -2px rgba(50,50,70,0.2);
     }
 
     /* Container */
@@ -138,6 +201,7 @@
       border-radius: 50px;
       text-align: center;
       position: relative;
+      transition: all 0.5s ease;
     }
 
     /* Enhanced Profile Section */
@@ -153,8 +217,7 @@
       height: 180px;
       width: 180px;
       margin: 0 auto 20px;
-      border-radius: 50%;
-      position: relative;
+      border-radius: 40% 60% 65% 35% / 35% 55% 45% 65%;
       animation: bari 12s linear infinite, float 6s ease-in-out infinite;
       justify-content: center;
       align-items: center;
@@ -249,12 +312,14 @@
       margin: 10px 0;
       color: #333;
       text-shadow: 7px 7px 10px -2px rgba(0,0,0,0.5);
+      transition: all 0.5s ease;
     }
 
     .bio {
       font-size: 1.2rem;
       color: #777;
       text-shadow: inset 7px 7px 10px -2px rgba(0,0,0,0.5), inset -7px -7px 10px -2px rgba(255,255,255,0.7);
+      transition: all 0.5s ease;
     }
 
     /* About Me Section */
@@ -266,12 +331,14 @@
       font-size: 2rem;
       margin-bottom: 15px;
       color: #333;
+      transition: all 0.5s ease;
     }
 
     .info p {
       font-size: 1rem;
       line-height: 1.6;
       color: #555;
+      transition: all 0.5s ease;
     }
 
     /* Social Media Icons */
@@ -283,6 +350,7 @@
       font-size: 2rem;
       margin-bottom: 15px;
       color: #333;
+      transition: all 0.5s ease;
     }
 
     .icons {
@@ -409,10 +477,22 @@
       box-shadow: 7px 7px 17px -2px rgba(0,0,0,0.5), -7px -7px 17px -2px rgba(255,255,255,0.7);
       color: #333;
       text-decoration: none;
+      transition: all 0.5s ease;
     }
 
     .nav a:hover {
       box-shadow: inset 1px 1px 8px -2px rgba(0,0,0,0.5), inset -2px -2px 8px -2px rgba(255,255,255,0.7);
+    }
+
+    /* Theme Toggle Icon */
+    .theme-toggle {
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(30deg);
     }
 
     /* Improved Gallery Section with Lightbox */
@@ -423,6 +503,7 @@
       background-color: #d1d9eb;
       border-radius: 30px;
       box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
+      transition: all 0.5s ease;
     }
 
     .gallery.active {
@@ -474,6 +555,7 @@
       margin-bottom: 15px;
       color: #333;
       padding: 0 15px;
+      transition: all 0.5s ease;
     }
 
     /* Lightbox Styles */
@@ -530,6 +612,7 @@
       background-color: #d1d9eb;
       border-radius: 30px;
       box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
+      transition: all 0.5s ease;
     }
 
     .message-form.active {
@@ -556,6 +639,7 @@
       background-color: #d1d9eb;
       box-shadow: inset 7px 7px 17px -2px rgba(0,0,0,0.3), inset -7px -7px 17px -2px rgba(255,255,255,0.7);
       font-family: 'Montserrat', sans-serif;
+      transition: all 0.5s ease;
     }
 
     .form-group textarea {
@@ -664,7 +748,7 @@
   <!-- Main Content -->
   <div class="container">
     <div class="nav">
-      <a href="#" class="menu"><i class="fa fa-ellipsis-v"></i></a>
+      <a href="#" class="menu theme-toggle" id="theme-toggle"><i class="fas fa-moon"></i></a>
     </div>
 
     <div class="profile">
@@ -698,10 +782,10 @@
       <h3 class="gallery-title">My Gallery</h3>
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="image1.jpg" alt="Gallery Image 1" class="gallery-image">
+          <img src="profile.jpg" alt="Gallery Image 1" class="gallery-image">
         </div>
         <div class="gallery-item">
-          <img src="image2.jpg" alt="Gallery Image 2" class="gallery-image">
+          <img src="profile.jpg" alt="Gallery Image 2" class="gallery-image">
         </div>
         <div class="gallery-item">
           <img src="image3.jpg" alt="Gallery Image 3" class="gallery-image">
@@ -767,6 +851,20 @@
     const lightboxImg = document.getElementById('lightbox-image');
     const closeLightbox = document.querySelector('.close-lightbox');
     const galleryImages = document.querySelectorAll('.gallery-image');
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Theme Toggle Functionality
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      // Change icon based on theme
+      if (body.classList.contains('dark-mode')) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    });
 
     // Shake and Bounce Animation on Click
     profileImg.addEventListener('click', () => {
